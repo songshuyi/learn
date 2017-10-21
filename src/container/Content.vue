@@ -97,6 +97,7 @@
                 localStorage.setItem(this.zid+'-'+this.fzid,now_play.zlliebiao)
                 loop_index = i
                 this.init()
+                this.play()
             },
             progress_time(e) {
                 myAudio.currentTime = (e.clientX-window.innerWidth*0.1)/(window.innerWidth*0.8)*myAudio.duration;
@@ -104,7 +105,7 @@
             init() {
                 clearInterval(duration)
                 duration = setInterval(() => {
-                    if(!isNaN(myAudio.duration)){
+                    if(!isNaN(myAudio.duration) && !isNaN(myAudio.currentTime)){
                         this.duration = this.covert_time(myAudio.duration)
                         this.current_time = this.covert_time(myAudio.currentTime);
                         this.progress = (myAudio.currentTime/myAudio.duration).toFixed(2)
