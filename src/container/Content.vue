@@ -79,7 +79,7 @@
                     myAudio.currentTime = 0;
                     myAudio.play();
                 }
-                this.now_play=this.list.length?this.list[loop_index]:''
+                this.change(loop_index)
             },
             loop(e){
                 var loop_position=['0 -260px','0 -100px','0 -180px'];
@@ -93,11 +93,12 @@
             change(i) {
                 const now_play = this.list[i]
                 this.now_play = now_play.zlliebiao
-                myAudio.src = now_play.muz
-                localStorage.setItem(this.zid+'-'+this.fzid,now_play.zlliebiao)
-                loop_index = i
-                this.init()
-                this.play()
+                if(now_play.zlliebiao) {
+                    myAudio.src = now_play.muz
+                    localStorage.setItem(this.zid+'-'+this.fzid,now_play.zlliebiao)
+                    loop_index = i
+                    this.init()
+                }
             },
             progress_time(e) {
                 myAudio.currentTime = (e.clientX-window.innerWidth*0.1)/(window.innerWidth*0.8)*myAudio.duration;
@@ -109,6 +110,9 @@
                         this.duration = this.covert_time(myAudio.duration)
                         this.current_time = this.covert_time(myAudio.currentTime);
                         this.progress = (myAudio.currentTime/myAudio.duration).toFixed(2)
+                        if(myAudio.paused){
+                            myAudio.play()
+                        }
                     }
                 },1000)
             },
@@ -123,14 +127,11 @@
             }
         },
         mounted() {
-            this.now_play = localStorage.getItem(this.zid+'-'+this.fzid)
-            this.getList()
-        },
-        created() {
             myAudio = new Audio()
-            myAudio.onended = this.switchMusic('next')
             myAudio.ontimeupdate = this.init()
             myAudio.onloadedmetadata = this.play()
+            this.now_play = localStorage.getItem(this.zid+'-'+this.fzid)
+            this.getList()
         }
     }
 </script>
