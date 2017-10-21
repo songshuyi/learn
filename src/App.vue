@@ -49,8 +49,8 @@
   }
   body {
     margin: 0 auto;
-    font-size: 0.26rem;
-    color: #555;
+    font-size: 0.28rem;
+    color: #fff;
     line-height: 1.5;
     width: 100%;
     max-width: 750px;
@@ -62,7 +62,7 @@
     -moz-user-select:none;
     -ms-user-select:none;
     user-select:none;
-    min-height: 100%;
+    height: 100%;
   }
   article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary {
     display: block;
