@@ -107,6 +107,7 @@
             },
             init() {
                 clearInterval(duration)
+                loadOver = false
                 duration = setInterval(() => {
                     if(!isNaN(myAudio.duration) && !isNaN(myAudio.currentTime)){
                         this.duration = this.covert_time(myAudio.duration)
@@ -131,7 +132,11 @@
         },
         mounted() {
             myAudio = new Audio()
-            myAudio.onended = this.switchMusic('next')
+            myAudio.loop = false
+            myAudio.onended = () => {
+                myAudio.pause()
+                this.switchMusic('next')
+            }
             myAudio.ontimeupdate = this.init()
             myAudio.onloadedmetadata = this.play()
             this.now_play = localStorage.getItem(this.zid+'-'+this.fzid)
