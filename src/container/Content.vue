@@ -32,6 +32,7 @@
     let loop_index = 0
     let myAudio = ''
     let duration = 0
+    let loadOver = false
     import API from '@/api'
     export default {
         name: 'content',
@@ -96,6 +97,7 @@
                 if(now_play.zlliebiao) {
                     myAudio.src = now_play.muz
                     localStorage.setItem(this.zid+'-'+this.fzid,now_play.zlliebiao)
+                    localStorage.setItem(this.zid+'-'+this.fzid+'-i',i)
                     loop_index = i
                     this.init()
                 }
@@ -110,8 +112,9 @@
                         this.duration = this.covert_time(myAudio.duration)
                         this.current_time = this.covert_time(myAudio.currentTime);
                         this.progress = (myAudio.currentTime/myAudio.duration).toFixed(2)
-                        if(myAudio.paused){
+                        if(!loadOver && myAudio.paused){
                             myAudio.play()
+                            loadOver = true
                         }
                     }
                 },1000)
@@ -128,9 +131,11 @@
         },
         mounted() {
             myAudio = new Audio()
+            myAudio.onended = this.switchMusic('next')
             myAudio.ontimeupdate = this.init()
             myAudio.onloadedmetadata = this.play()
             this.now_play = localStorage.getItem(this.zid+'-'+this.fzid)
+            loop_index = localStorage.getItem(this.zid+'-'+this.fzid+'-i') || -1
             this.getList()
         }
     }
