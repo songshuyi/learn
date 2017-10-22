@@ -15,8 +15,8 @@
                          class="half"
                          :to="`/content/${item.zid}/${item.fzid}`">
             </router-link>
-            <div class="mask"></div>
         </div>
+        <div class="mask"></div>
     </div>
 </template>
 <script>
@@ -65,5 +65,5 @@
         -webkit-transform-origin:  0 0;
         box-sizing: border-box;
     }
-    .list{height: 10rem;overflow: auto;margin-top: 1rem;}
+    .list{height: 10rem;overflow: auto;padding-top: 1rem;}
 </style>
