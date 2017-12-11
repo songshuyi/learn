@@ -127,7 +127,8 @@
                 return (minute>=10?minute:'0'+minute)+':'+ (s>=10?s:'0'+s)
             },
             async getList() {
-                this.list = JSON.parse(await API.get(`${API.content}?zid=${this.zid}&fzid=${this.fzid}`)).reverse()
+                const data = await API.get(`/static/deDao/${this.fzid}.json`)
+                this.list = data.reverse()
             }
         },
         mounted() {

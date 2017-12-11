@@ -25,22 +25,16 @@
         name: 'index',
         data() {
             return {
-                fenlei: [],
+                fenlei: ['得到'],
                 list: []
             }
         },
         mounted() {
-            this.getFenLei()
-            this.getList(0)
+            this.getList()
         },
         methods: {
-            async getFenLei() {
-                const data = await API.get(API.fenlei)
-                this.fenlei = JSON.parse(data)
-            },
-            async getList(zid) {
-                const data = await API.get(`${API.list}?zid=${zid}`)
-                this.list = JSON.parse(data)
+            async getList() {
+                this.list = await API.get('/static/deDao/deDao.json')
             }
         },
         computed: {},
